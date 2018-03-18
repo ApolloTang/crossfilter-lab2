@@ -15,4 +15,9 @@ function pObj (o) {
   return'pObj done'
 }
 
+function pObjT (o) {
+  console.table(o)
+  return'pObjT done'
+}
+
 const l = console.log
