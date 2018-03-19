@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>crossfilter lab</title>
+  <style type="text/less">
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      padding-top:100px;
+    }
+  </style>
+</head>
+
+<body>
+<div class="app">
+</div>
+<script src="http://localhost:9091/less/dist/less.js"></script>
+<script src="http://localhost:9091/lodash.js"></script>
+<script src="http://localhost:9091/crossfilter-v1.3.js"></script>
+<script src="http://localhost:9091/print-filter.js"></script>
+<script src="./data.js"></script>
+<script>
+console.log( `
+  _: version ${_.VERSION}
+  less: version ${less.version}
+  crossfilter: version ${crossfilter.version}
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+`);
+const facts = crossfilter(data);
+l('facts.size(): ', facts.size())
+l('original data', pObjT(data))
+l(`--------------------------------------------------------`)
+
+const d_type = facts.dimension(d=>d.type)
+l('d_type.top(Infinity)', pObjT(d_type.top(Infinity)))
+
+l(`--------------------------------------------------------`)
+
+const g_type = d_type.group()
+l('g_type.top(Infinity)', pObjT(g_type.top(Infinity)))
+l('the sort order of top(Infinity) is by value (descending natural): 8 > 2 > 2')
+
+l(` -------------------------------------------------------- `)
+
+l('g_type.all()', pObjT(g_type.all()))
+l('the sort order of all() is by key (ascending natural): "cash" < "tab" < "visa"')
+
+l(`*** Another key different btw group.all() and group.top():
+  • group.all() return the existing array (do not modify it!), and is faster
+  • group.top() return a new array, and is slower`)
+</script>
+</body>
+</html>
