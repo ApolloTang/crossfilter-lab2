@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>crossfilter lab</title>
+  <style type="text/less">
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      padding-top:100px;
+    }
+  </style>
+</head>
+
+<body>
+<div class="app">
+</div>
+<script src="http://localhost:9091/less/dist/less.js"></script>
+<script src="http://localhost:9091/lodash.js"></script>
+<script src="http://localhost:9091/crossfilter-v1.3.js"></script>
+<script src="http://localhost:9091/print-filter.js"></script>
+<script src="./data.js"></script>
+<script>
+console.log( `
+  _: version ${_.VERSION}
+  less: version ${less.version}
+  crossfilter: version ${crossfilter.version}
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+`);
+
+l('original data', pObjT(data))
+const facts = crossfilter(data);
+const d_total = facts.dimension(d=>d.total);
+
+l(`--------------------------------------------------------`)
+l(`d_total.filterExact(200).top(Infinity) `, pObjT( d_total.filter(200).top(Infinity) ))
+
+// l(` -------------------------------------------------------- `)
+
+</script>
+</body>
+</html>
