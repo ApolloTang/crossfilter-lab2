@@ -28,14 +28,68 @@ console.log( `
   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 `);
 
-l('original data', pObjT(data))
+l(`(0)  -------------------------------`)
+l('original data')
+l(pObjT(data))
+
+l(`(1)  -------------------------------`)
 const facts = crossfilter(data);
-const d_total = facts.dimension(d=>d.total);
 
-l(`--------------------------------------------------------`)
-l(`d_total.filterExact(200).top(Infinity) `, pObjT( d_total.filter(200).top(Infinity) ))
+l(`d_tip = facts.dimension(d=>d.tip)`)
+const d_tip = facts.dimension(d=>d.tip);
+l(`d_tip.top(Infinity) `)
+l(pObjT( d_tip.top(Infinity) ))
 
-// l(` -------------------------------------------------------- `)
+l(`d_type = facts.dimension(d=>d.type)`)
+const d_type = facts.dimension(d=>d.type);
+l(`d_type.top(Infinity) `)
+l(pObjT( d_type.top(Infinity)) )
+
+l(`(2)  -------------------------------`)
+l(`d_tip.filterExact(0).top(Infinity) `)
+l(pObjT( d_tip.filterExact(0).top(Infinity) ))
+
+l(`d_tip.top(Infinity) `)
+l(pObjT( d_tip.top(Infinity) ))
+l(`d_type.top(Infinity) `)
+l(pObjT( d_type.top(Infinity)) )
+
+l(`(3)  -------------------------------`)
+
+l(`d_type.filterExact('tab').top(Infinity) `)
+l(pObjT( d_type.filterExact('tab').top(Infinity) ))
+
+l(`d_tip.top(Infinity) `)
+l(pObjT( d_tip.top(Infinity) ))
+l(`d_type.top(Infinity) `)
+l(pObjT( d_type.top(Infinity)) )
+
+l(`Note the above, all dimensions have altered by the filtered row`)
+
+l(`(4)  -------------------------------`)
+l(`@@ REMOVE FILTER ON DIMENSION.TIP`)
+
+l(`d_tip.filterAll().top(Infinity) <--- this remove filter on dimention.tip`)
+l(pObjT( d_tip.filterAll().top(Infinity) ))
+l(`At the point in time "tab" filter is still in effect`)
+l(`that is why only "tab" exist in the return`)
+
+l(`d_tip.top(Infinity) `)
+l(pObjT( d_tip.top(Infinity) ))
+l(`d_type.top(Infinity) `)
+l(pObjT( d_type.top(Infinity)) )
+
+
+l(`(5)  -------------------------------`)
+l(`@@ REMOVE FILTER ON DIMENSION.TYPE`)
+
+l(`d_type.filterAll().top(Infinity) <--- this remove filter on dimention.type`)
+l(pObjT( d_type.filterAll().top(Infinity) ))
+
+l(`d_tip.top(Infinity) `)
+l(pObjT( d_tip.top(Infinity) ))
+l(`d_type.top(Infinity) `)
+l(pObjT( d_type.top(Infinity)) )
 
 </script>
 </body>
