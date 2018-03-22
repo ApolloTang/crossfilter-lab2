@@ -29,26 +29,37 @@ console.log( `
 `);
 const facts = crossfilter(data);
 l('facts.size(): ', facts.size())
-l('original data', pObjT(data))
+l('original data')
+l(pObjT(data));
 l(`--------------------------------------------------------`)
 
 const d_type = facts.dimension(d=>d.type)
-l('d_type.top(Infinity)', pObjT(d_type.top(Infinity)))
+l('d_type.top(Infinity)')
+l('typeof top: ', Object.prototype.toString.call(d_type.top(Infinity)))
+l(pObjT(d_type.top(Infinity)))
 
 l(`--------------------------------------------------------`)
 
 const g_type = d_type.group()
-l('g_type.top(Infinity)', pObjT(g_type.top(Infinity)))
-l('the sort order of top(Infinity) is by value (descending natural): 8 > 2 > 2')
+l('g_type.top(Infinity)')
+l('typeof top: ', Object.prototype.toString.call(g_type.top(Infinity)))
+l(pObjT(g_type.top(Infinity)))
+l('There is a different between the sort of top for group and dimension')
+l('• the sort order of group.top(Infinity) is by value (descending natural): 8 > 2 > 2')
+l('• the sort order of dimension.top(Infinity) is by key (descending natural: "visa", "tab", "cash")')
 
 l(` -------------------------------------------------------- `)
 
-l('g_type.all()', pObjT(g_type.all()))
-l('the sort order of all() is by key (ascending natural): "cash" < "tab" < "visa"')
+l('In addition to group.top(), there is group.all()')
+l(pObjT(g_type.all()))
+l('The sort order of all() is by key (ascending natural): "cash" < "tab" < "visa"')
 
 l(`*** Another key different btw group.all() and group.top():
   • group.all() return the existing array (do not modify it!), and is faster
   • group.top() return a new array, and is slower`)
+
+l(`
+There is no dimension.all() method`)
 </script>
 </body>
 </html>
