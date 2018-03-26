@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>crossfilter lab</title>
+  <style type="text/less">
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      padding-top:100px;
+    }
+  </style>
+</head>
+
+<body>
+<div class="app">
+</div>
+<script src="http://localhost:9091/less/dist/less.js"></script>
+<script src="http://localhost:9091/lodash.js"></script>
+<script src="http://localhost:9091/crossfilter-v1.3.js"></script>
+<script src="http://localhost:9091/print-filter.js"></script>
+<script src="./data.js"></script>
+<script>
+console.log( `
+  _: version ${_.VERSION}
+  less: version ${less.version}
+  crossfilter: version ${crossfilter.version}
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+`);
+console.clear()
+const I = Infinity
+const facts = crossfilter(data);
+l(`--------------------------------------------------------`)
+
+
+d_tip = facts.dimension( d => { return d.tip});
+d_type = facts.dimension( d => { return d.type});
+d_date = facts.dimension( d => { return d.date});
+
+
+g_tip = d_tip.group();
+g_type = d_type.group();
+
+// g_tip_b4 = _.cloneDeep(g_tip.top(I));
+
+l('[before] d_tip.top(I): ', pT(d_tip.top(I)))
+l('[before] d_type.top(I): ', pT(d_type.top(I)))
+l('[before] g_tip.top(I): ', pT(g_tip.top(I)))
+l('[before] g_tip.all(): ', pT(g_tip.all()))
+l('[before] g_type.top(I): ', pT(g_type.top(I)))
+l('[before] g_type.all(): ', pT(g_type.all()))
+l('[before] facts.groupAll().value(): ', facts.groupAll().value());
+l('[before] d_tip.groupAll().value(): ', d_tip.groupAll().value());
+l('[before] d_type.groupAll().value(): ', d_type.groupAll().value());
+
+debugger;
+l('d_type.filter("tab") <<<<<<<')
+f_d_type = d_type.filter(d=>{l(d); return d==='tab'})
+
+l('d_tip.top(I): ', pT(d_tip.top(I)))
+l('d_type.top(I): ', pT(d_type.top(I)))
+l('g_tip.top(I): ', pT(g_tip.top(I)))
+l('g_tip.all(): ', pT(g_tip.all()))
+l('g_type.top(I): ', pT(g_type.top(I)))
+l('g_type.all(): ', pT(g_type.all()))
+l('facts.groupAll().value(): ', facts.groupAll().value());
+l('d_tip.groupAll().value(): ', d_tip.groupAll().value());
+l('d_type.groupAll().value(): ', d_type.groupAll().value());
+
+
+/*
+const d_type = facts.dimension(d=>d.type)
+l('d_type.top(Infinity)')
+l('typeof top: ', Object.prototype.toString.call(d_type.top(Infinity)))
+l(pT(d_type.top(Infinity)))
+
+l(`--------------------------------------------------------`)
+
+const g_type = d_type.group()
+l('g_type.top(Infinity)')
+l('typeof top: ', Object.prototype.toString.call(g_type.top(Infinity)))
+l(pT(g_type.top(Infinity)))
+l('There is a different between the sort of top for group and dimension')
+l('• the sort order of group.top(Infinity) is by value (descending natural): 8 > 2 > 2')
+l('• the sort order of dimension.top(Infinity) is by key (descending natural: "visa", "tab", "cash")')
+
+l(` -------------------------------------------------------- `)
+
+l('In addition to group.top(), there is group.all()')
+l(pT(g_type.all()))
+l('The sort order of all() is by key (ascending natural): "cash" < "tab" < "visa"')
+
+l(`*** Another key different btw group.all() and group.top():
+  • group.all() return the existing array (do not modify it!), and is faster
+  • group.top() return a new array, and is slower`)
+
+l(`
+There is no dimension.all() method`)
+*/
+</script>
+</body>
+</html>
