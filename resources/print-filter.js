@@ -17,7 +17,9 @@ function pObj (o) {
 
 function pObjT (o) {
   console.table(o)
-  return'pObjT done'
+  return'<T done>'
 }
 
 const l = console.log
+const pT = pObjT
+
