@@ -19,7 +19,7 @@
 <script src="http://localhost:9091/lodash.js"></script>
 <script src="http://localhost:9091/crossfilter-v1.3.js"></script>
 <script src="http://localhost:9091/print-filter.js"></script>
-<script src="./data.js"></script>
+<script src="../data.js"></script>
 <script>
 console.log( `
   _: version ${_.VERSION}
@@ -53,8 +53,25 @@ l('[before] facts.groupAll().value(): ', facts.groupAll().value());
 l('[before] d_tip.groupAll().value(): ', d_tip.groupAll().value());
 l('[before] d_type.groupAll().value(): ', d_type.groupAll().value());
 
+l('--- the next two statements are equivalent ---')
+l('[before] facts.groupAll().value(): ', facts.groupAll().value());
+l('[before] facts.groupAll().reduceCount().value(): ', facts.groupAll().reduceCount().value());
+
+l('--- the next two statements are equivalent ---')
+l('[before] d_tip.groupAll().value(): ', d_tip.groupAll().value());
+l('[before] d_tip.groupAll().reduceCount().value(): ', d_tip.groupAll().reduceCount().value());
+
+l('--- the next two statements are equivalent ---')
+l('[before] d_type.groupAll().value(): ', d_type.groupAll().value());
+l('[before] d_type.groupAll().reduceCount().value(): ', d_type.groupAll().reduceCount().value());
+
+l('--- applying reduceSum ---')
+l('[before] facts.groupAll().reduceSum(d=>.d.total).value(): ', facts.groupAll().reduceSum(d=>d.total).value());
+l('[before] d_tip.groupAll().reduceSum(d=>.d.total).value(): ', d_tip.groupAll().reduceSum(d=>d.total).value());
+l('[before] d_type.groupAll().reduceSum(d=>.d.total).value(): ', d_type.groupAll().reduceSum(d=>d.total).value());
+
 debugger;
-l('d_type.filter("tab") <<<<<<<')
+l('now apply filter: d_type.filter("tab") <<<<<<<')
 f_d_type = d_type.filter(d=>{l(d); return d==='tab'})
 
 l('d_tip.top(I): ', pT(d_tip.top(I)))
@@ -68,35 +85,22 @@ l('d_tip.groupAll().value(): ', d_tip.groupAll().value());
 l('d_type.groupAll().value(): ', d_type.groupAll().value());
 
 
-/*
-const d_type = facts.dimension(d=>d.type)
-l('d_type.top(Infinity)')
-l('typeof top: ', Object.prototype.toString.call(d_type.top(Infinity)))
-l(pT(d_type.top(Infinity)))
+l('--- the next two statements are equivalent ---')
+l('facts.groupAll().value(): ', facts.groupAll().value());
+l('facts.groupAll().reduceCount().value(): ', facts.groupAll().reduceCount().value());
 
-l(`--------------------------------------------------------`)
+l('--- the next two statements are equivalent ---')
+l('d_tip.groupAll().value(): ', d_tip.groupAll().value());
+l('d_tip.groupAll().reduceCount().value(): ', d_tip.groupAll().reduceCount().value());
 
-const g_type = d_type.group()
-l('g_type.top(Infinity)')
-l('typeof top: ', Object.prototype.toString.call(g_type.top(Infinity)))
-l(pT(g_type.top(Infinity)))
-l('There is a different between the sort of top for group and dimension')
-l('• the sort order of group.top(Infinity) is by value (descending natural): 8 > 2 > 2')
-l('• the sort order of dimension.top(Infinity) is by key (descending natural: "visa", "tab", "cash")')
+l('--- the next two statements are equivalent ---')
+l('d_type.groupAll().value(): ', d_type.groupAll().value());
+l('d_type.groupAll().reduceCount().value(): ', d_type.groupAll().reduceCount().value());
 
-l(` -------------------------------------------------------- `)
-
-l('In addition to group.top(), there is group.all()')
-l(pT(g_type.all()))
-l('The sort order of all() is by key (ascending natural): "cash" < "tab" < "visa"')
-
-l(`*** Another key different btw group.all() and group.top():
-  • group.all() return the existing array (do not modify it!), and is faster
-  • group.top() return a new array, and is slower`)
-
-l(`
-There is no dimension.all() method`)
-*/
+l('--- applying reduceSum ---')
+l('facts.groupAll().reduceSum(d=>.d.total).value(): ', facts.groupAll().reduceSum(d=>d.total).value());
+l('d_tip.groupAll().reduceSum(d=>.d.total).value(): ', d_tip.groupAll().reduceSum(d=>d.total).value());
+l('d_type.groupAll().reduceSum(d=>.d.total).value(): ', d_type.groupAll().reduceSum(d=>d.total).value());
 </script>
 </body>
 </html>
