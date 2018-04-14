@@ -19,7 +19,7 @@
 <script src="http://localhost:9091/lodash.js"></script>
 <script src="http://localhost:9091/crossfilter-v1.3.js"></script>
 <script src="http://localhost:9091/print-filter.js"></script>
-<script src="./data.js"></script>
+<script src="../data.js"></script>
 <script>
 console.log( `
   _: version ${_.VERSION}
@@ -27,12 +27,21 @@ console.log( `
   crossfilter: version ${crossfilter.version}
 `);
 const facts = crossfilter(data);
-l('facts.size(): ', facts.size())
+l('* facts.size(): ', facts.size())
+l('* ↑⤷ print out number of row of data' )
+
 
 const d_total = facts.dimension(d=>d.total);
-l('dimension.method: ', Object.keys(d_total))
-l('d_total.top(Infinity)', pObj(d_total.top(Infinity)))
-l('d_total.top(Infinity)', pObj(d_total.bottom(Infinity)))
+
+l('* dimension.method: ')
+l(Object.keys(d_total))
+l('---')
+
+l('* d_total.top(Infinity)')
+l(pObj(d_total.top(Infinity)))
+
+l('* d_total.bottom(Infinity)')
+l(pObj(d_total.bottom(Infinity)))
 
 
 

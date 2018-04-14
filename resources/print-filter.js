@@ -12,12 +12,12 @@ function pObj (o) {
     .replace("[","[\n\t")
     .replace(/}\,/g,"},\n\t")
     .replace("]","\n]"));
-  return'pObj done'
+  return'---'
 }
 
 function pObjT (o) {
   console.table(o)
-  return'<T done>'
+  return'---'
 }
 
 const l = console.log
