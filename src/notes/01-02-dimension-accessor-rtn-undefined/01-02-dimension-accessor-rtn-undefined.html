@@ -19,7 +19,7 @@
 <script src="http://localhost:9091/lodash.js"></script>
 <script src="http://localhost:9091/crossfilter-v1.3.js"></script>
 <script src="http://localhost:9091/print-filter.js"></script>
-<script src="./data.js"></script>
+<script src="../data.js"></script>
 <script>
 console.log( `
   _: version ${_.VERSION}
@@ -28,16 +28,22 @@ console.log( `
   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 `);
 const facts = crossfilter(data);
-l('facts.size(): ', facts.size())
-l('original data', pObjT(data))
-l(`--------------------------------------------------------`)
+l('* facts.size(): ', facts.size())
+
+l('* original data')
+l(pObjT(data))
 
 const d_undefined = facts.dimension(d=>undefined);
-l('d_undefined.top(Infinity)', pObjT(d_undefined.top(Infinity)))
+
+l('* d_undefined.top(Infinity)')
+l(pObjT(d_undefined.top(Infinity)))
 l(`
 @@@ The document said accessor should not return "incomparable" value.
 So I tried it (above); returning "undefined", the dimension.top()
-give original data in reverse alphabatical sort order.
+give original data in reverse order.
+
+I think this is because the bottomest row has the greatest ordinal,
+and thus top() list them first
 --------------------------------------------------------
 `)
 
@@ -46,11 +52,10 @@ l(`
 from accessor (ids are comparable, and ordered) which show you how dimension.top()
 return the original data.
 `)
+
 const d_id = facts.dimension(d=>d.id);
-l('d_id.top(Infinity)', pObjT(d_id.top(Infinity)))
-l(`
---------------------------------------------------------
-`)
+l('* d_id.top(Infinity)')
+l(pObjT(d_id.top(Infinity)))
 
 
 </script>
