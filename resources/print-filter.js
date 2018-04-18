@@ -21,5 +21,6 @@ function pObjT (o) {
 }
 
 const l = console.log
-const pT = pObjT
+const pT = pt = pObjT
+const po = pObj
 

@@ -29,30 +29,34 @@ console.log( `
 `);
 const facts = crossfilter(data);
 l('facts.size(): ', facts.size())
-l('original data', pObjT(data))
+l('original data')
+l(pt(data))
 l(`--------------------------------------------------------`)
 
-l(` odd id will be label "1" `)
-let label = '2'
 const d_label = facts.dimension(d=>{
-  label = (label === '1') ? '2' : '1';
+  label = ( Number(d.id) % 2 !== 0 ) ? 'odd' : 'even';
   l(`label: ${label}, id:${d.id}`)
   return label;
 });
-l('d_label.top(Infinity)', pObjT(d_label.top(Infinity)))
-l(`In the above table even id is listed first because label "2" is greater (top)`)
-
 
 l(`--------------------------------------------------------`)
+
+l( `
+@@@ In the following table odd id is listed
+first b/o "odd" is greater (top)
+`)
+l('d_label.top(Infinity)')
+l(pt(d_label.top(Infinity)))
+
+
 l(`
-@@@ Below we return id from accessor (ids are comparable, and ordered) to
+@@@ Below we return id from accessor
+(ids are comparable, and ordered naturally) to
 show you how dimension.top() return the original data.
 `)
 const d_id = facts.dimension(d=>d.id);
-l('d_id.top(Infinity)', pObjT(d_id.top(Infinity)))
-l(`
---------------------------------------------------------
-`)
+l('d_id.top(Infinity)')
+l(pt(d_id.top(Infinity)))
 </script>
 </body>
 </html>
