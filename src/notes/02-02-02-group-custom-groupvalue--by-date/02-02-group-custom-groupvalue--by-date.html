@@ -19,7 +19,7 @@
 <script src="http://localhost:9091/lodash.js"></script>
 <script src="http://localhost:9091/crossfilter-v1.3.js"></script>
 <script src="http://localhost:9091/print-filter.js"></script>
-<script src="./data.js"></script>
+<script src="../data.js"></script>
 <script>
 console.log( `
   _: version ${_.VERSION}
@@ -28,19 +28,24 @@ console.log( `
   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 `);
 
-l('facts', pObjT(data))
+l('data: date type is string')
+l(pt(data))
+
 data.forEach(d=>{
   d.date = new Date(d.date)
 })
-l('facts', pObjT(data))
-l('date colume now is parse to Date Obj')
+l('data: date type is Date()')
+l(pt(data))
 
 const facts = crossfilter(data);
 l(`--------------------------------------------------------`)
 
 const d_date = facts.dimension(d=>d.date)
+l('d_date.top(Infinity)')
+pt(d_date.top(Infinity))
+
 const g_date = d_date.group(d=>d.getHours())
-l('g_date.all()', pObjT(g_date.all()))
+l('g_date.all()', pt(g_date.all()))
 
 // l(` -------------------------------------------------------- `)
 
