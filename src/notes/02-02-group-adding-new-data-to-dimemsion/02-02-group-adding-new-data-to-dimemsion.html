@@ -19,7 +19,7 @@
 <script src="http://localhost:9091/lodash.js"></script>
 <script src="http://localhost:9091/crossfilter-v1.3.js"></script>
 <script src="http://localhost:9091/print-filter.js"></script>
-<script src="./data.js"></script>
+<script src="../data.js"></script>
 <script>
 console.log( `
   _: version ${_.VERSION}
@@ -29,16 +29,20 @@ console.log( `
 `);
 const facts = crossfilter(data);
 l('facts.size(): ', facts.size())
-l('original data', pObjT(data))
+l('original data')
+pt(data)
+
 l(`--------------------------------------------------------`)
 
 const d_type = facts.dimension(d=>d.type)
-l('d_type.top(Infinity)', pObjT(d_type.top(Infinity)))
+l('d_type.top(Infinity)')
+pt(d_type.top(Infinity))
 
 l(`--------------------------------------------------------`)
 
 const g_type = d_type.group()
-l('g_type.all()', pObjT(g_type.all()))
+l('g_type.all()')
+pt(g_type.all())
 
 l(` -------------------------------------------------------- `)
 
@@ -47,7 +51,14 @@ const newData = [
 ]
 l('adding a new fact to facts now')
 facts.add(newData)
-l('d_type.top(Infinity)', pObjT(d_type.top(Infinity)))
+
+l('facts.size(): ', facts.size())
+l('d_type.top(Infinity)')
+pt(d_type.top(Infinity))
+
+l(` -------------------------------------------------------- `)
+l('g_type.all()')
+pt(g_type.all())
 
 </script>
 </body>
