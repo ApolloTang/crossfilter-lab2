@@ -38,16 +38,34 @@ l('data: date type is Date()')
 l(pt(data))
 
 const facts = crossfilter(data);
-l(`--------------------------------------------------------`)
 
 const d_date = facts.dimension(d=>d.date)
+l(`
+const d_date = facts.dimension(d=>d.date)
+`)
 l('d_date.top(Infinity)')
 pt(d_date.top(Infinity))
 
-const g_date = d_date.group(d=>d.getHours())
-l('g_date.all()', pt(g_date.all()))
+// const g_date = d_date.group()
+// l('g_date.group()')
+// l('g_date.all()')
+// pt(g_date.all())
 
-// l(` -------------------------------------------------------- `)
+l(`
+const g_dateHour = d_date.group(date=>{
+  const out = date.getHours()
+  l(date, out)
+  return out
+})
+`)
+const g_dateHour = d_date.group(date=>{
+  const out = date.getHours()
+  l(date, out)
+  return out
+})
+l('g_dateHour.all()')
+pt(g_dateHour.all())
+
 
 </script>
 </body>
