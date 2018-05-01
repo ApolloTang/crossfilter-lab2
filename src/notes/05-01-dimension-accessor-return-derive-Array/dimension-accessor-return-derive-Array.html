@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>crossfilter lab</title>
+  <style type="text/less">
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      padding-top:100px;
+    }
+  </style>
+</head>
+
+<body>
+<div class="app">
+</div>
+<script src="http://localhost:9091/less/dist/less.js"></script>
+<script src="http://localhost:9091/lodash.js"></script>
+<script src="http://localhost:9091/crossfilter-v1.3.js"></script>
+<script src="http://localhost:9091/print-filter.js"></script>
+<script src="../data.js"></script>
+<script>
+console.log( `
+  _: version ${_.VERSION}
+  less: version ${less.version}
+  crossfilter: version ${crossfilter.version}
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+`);
+
+const I = Infinity
+l('data')
+pt(data)
+
+const facts = crossfilter(data);
+
+
+l(`
+const d_2dim = facts.dimension(function(d){
+  const derived = [d.total,d.tip];  // [note] this dimension is compose of *derived array*
+  return derived
+});
+`)
+const d_2dim = facts.dimension(function(d){
+  const derived = [d.total,d.tip];  // [note] this dimension is compose of *derived array*
+  return derived
+});
+l('d_2dim.top(I)')
+pt(d_2dim.top(I))
+
+l(` ------------------------------`)
+
+l(`
+const g_2dim = d_2dim.group(derive=>{
+  l(derive)
+  return derive
+})
+`)
+const g_2dim = d_2dim.group(derive=>{
+  l(derive)
+  return derive
+})
+
+
+l('g_2dim.top(I)')
+l(g_2dim.top(I))
+
+
+
+</script>
+</body>
+</html>
